@@ -1,4 +1,4 @@
-package com.maxi.chatdemo.ui;
+package com.maxi.chatdemo;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +8,6 @@ import android.widget.AbsListView;
 import com.maxi.chatdemo.adapter.ChatListViewAdapter;
 import com.maxi.chatdemo.common.ChatConst;
 import com.maxi.chatdemo.db.ChatMessageBean;
-import com.maxi.chatdemo.ui.base.BaseActivity;
 import com.maxi.chatdemo.utils.KeyBoardUtils;
 import com.maxi.chatdemo.widget.AudioRecordButton;
 import com.maxi.chatdemo.widget.pulltorefresh.PullToRefreshListView;

@@ -36,7 +36,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBarTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ListViewChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,9 +47,6 @@
             android:name=".ui.RecyclerViewChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
-        <activity
-            android:name=".ui.ListViewChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".ui.ImageViewActivity" />
     </application>
 

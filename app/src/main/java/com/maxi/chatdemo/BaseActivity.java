@@ -1,4 +1,4 @@
-package com.maxi.chatdemo.ui.base;
+package com.maxi.chatdemo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -27,7 +26,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.maxi.chatdemo.R;
 import com.maxi.chatdemo.adapter.DataAdapter;
 import com.maxi.chatdemo.adapter.ExpressionAdapter;
 import com.maxi.chatdemo.adapter.ExpressionPagerAdapter;

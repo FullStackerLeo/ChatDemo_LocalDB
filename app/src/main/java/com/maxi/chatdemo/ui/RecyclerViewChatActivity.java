@@ -1,6 +1,5 @@
 package com.maxi.chatdemo.ui;
 
-import android.app.ActionBar;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +14,7 @@ import com.maxi.chatdemo.adapter.ChatRecyclerAdapter;
 import com.maxi.chatdemo.animator.SlideInOutBottomItemAnimator;
 import com.maxi.chatdemo.common.ChatConst;
 import com.maxi.chatdemo.db.ChatMessageBean;
-import com.maxi.chatdemo.ui.base.BaseActivity;
+import com.maxi.chatdemo.BaseActivity;
 import com.maxi.chatdemo.utils.KeyBoardUtils;
 import com.maxi.chatdemo.widget.AudioRecordButton;
 import com.maxi.chatdemo.widget.pulltorefresh.PullToRefreshRecyclerView;
