@@ -1,6 +1,6 @@
 package com.maxi.chatdemo.db.interfaces;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 

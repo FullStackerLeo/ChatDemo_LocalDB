@@ -3,8 +3,8 @@ package com.maxi.chatdemo.db.base;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.maxi.chatdemo.db.DaoMaster;
 import com.maxi.chatdemo.db.DaoSession;
