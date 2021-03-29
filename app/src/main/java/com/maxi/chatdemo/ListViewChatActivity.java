@@ -30,7 +30,6 @@ public class ListViewChatActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
     }
 
@@ -52,7 +51,7 @@ public class ListViewChatActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        setTitle("ListView");
+        setTitle("List2View");
         sendMessageHandler = new SendMessageHandler(this);
         tbAdapter = new ChatListViewAdapter(this);
         tbAdapter.setUserList(tblist);
