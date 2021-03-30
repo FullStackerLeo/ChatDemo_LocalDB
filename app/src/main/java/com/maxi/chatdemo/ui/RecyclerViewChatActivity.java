@@ -37,8 +37,8 @@ public class RecyclerViewChatActivity extends BaseActivity {
     @Override
     protected void findView() {
         super.findView();
-        pullList.setSlideView(new PullToRefreshView(this).getSlideView(PullToRefreshView.RECYCLERVIEW));
-        myList = (PullToRefreshRecyclerView) pullList.returnMylist();
+        pullToRefreshLayout.setSlideView(new PullToRefreshView(this).getSlideView(PullToRefreshView.RECYCLERVIEW));
+        myList = (PullToRefreshRecyclerView) pullToRefreshLayout.returnMylist();
     }
 
     @Override
@@ -141,7 +141,7 @@ public class RecyclerViewChatActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        controlKeyboardLayout(activityRootView, pullList);
+        controlKeyboardLayout(activityRootView, pullToRefreshLayout);
         super.init();
     }
 
@@ -218,15 +218,15 @@ public class RecyclerViewChatActivity extends BaseActivity {
             tbAdapter.setImagePosition(imagePosition);
             sendMessageHandler.sendEmptyMessage(PULL_TO_REFRESH_DOWN);
             if (page == 0) {
-                pullList.refreshComplete();
-                pullList.setPullGone();
+                pullToRefreshLayout.refreshComplete();
+                pullToRefreshLayout.setPullGone();
             } else {
                 page--;
             }
         } else {
             if (page == 0) {
-                pullList.refreshComplete();
-                pullList.setPullGone();
+                pullToRefreshLayout.refreshComplete();
+                pullToRefreshLayout.setPullGone();
             }
         }
     }
@@ -264,7 +264,7 @@ public class RecyclerViewChatActivity extends BaseActivity {
                         theActivity.myList.smoothScrollToPosition(theActivity.tbAdapter.getItemCount() - 1);
                         break;
                     case PULL_TO_REFRESH_DOWN:
-                        theActivity.pullList.refreshComplete();
+                        theActivity.pullToRefreshLayout.refreshComplete();
                         theActivity.tbAdapter.notifyDataSetChanged();
                         theActivity.myList.smoothScrollToPosition(theActivity.position - 1);
                         theActivity.isDown = false;

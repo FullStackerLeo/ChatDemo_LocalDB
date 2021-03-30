@@ -19,8 +19,8 @@ import java.lang.ref.WeakReference;
  * Created by Mao Jiqing on 2016/10/10.
  */
 public class ListViewChatActivity extends BaseActivity {
-    public PullToRefreshListView myList;
-    public ChatListViewAdapter tbAdapter;
+    public PullToRefreshListView pullToRefreshListView;
+    public ChatListViewAdapter chatListViewAdapter;
     private SendMessageHandler sendMessageHandler;
 
     @Override
@@ -36,8 +36,8 @@ public class ListViewChatActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         tblist.clear();
-        tbAdapter.notifyDataSetChanged();
-        myList.setAdapter(null);
+        chatListViewAdapter.notifyDataSetChanged();
+        pullToRefreshListView.setAdapter(null);
         sendMessageHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
@@ -45,20 +45,20 @@ public class ListViewChatActivity extends BaseActivity {
     @Override
     protected void findView() {
         super.findView();
-        pullList.setSlideView(new PullToRefreshView(this).getSlideView(PullToRefreshView.LISTVIEW));
-        myList = (PullToRefreshListView) pullList.returnMylist();
+        pullToRefreshLayout.setSlideView(new PullToRefreshView(this).getSlideView(PullToRefreshView.LISTVIEW));
+        pullToRefreshListView = (PullToRefreshListView) pullToRefreshLayout.returnMylist();
     }
 
     @Override
     protected void init() {
         setTitle("List2View");
         sendMessageHandler = new SendMessageHandler(this);
-        tbAdapter = new ChatListViewAdapter(this);
-        tbAdapter.setUserList(tblist);
-        myList.setAdapter(tbAdapter);
-        tbAdapter.isPicRefresh = true;
-        tbAdapter.notifyDataSetChanged();
-        tbAdapter.setSendErrorListener(new ChatListViewAdapter.SendErrorListener() {
+        chatListViewAdapter = new ChatListViewAdapter(this);
+        chatListViewAdapter.setUserList(tblist);
+        pullToRefreshListView.setAdapter(chatListViewAdapter);
+        chatListViewAdapter.isPicRefresh = true;
+        chatListViewAdapter.notifyDataSetChanged();
+        chatListViewAdapter.setSendErrorListener(new ChatListViewAdapter.SendErrorListener() {
 
             @Override
             public void onClick(int position) {
@@ -74,36 +74,36 @@ public class ListViewChatActivity extends BaseActivity {
             }
 
         });
-        tbAdapter.setVoiceIsReadListener(new ChatListViewAdapter.VoiceIsRead() {
+        chatListViewAdapter.setVoiceIsReadListener(new ChatListViewAdapter.VoiceIsRead() {
 
             @Override
             public void voiceOnClick(int position) {
                 // TODO Auto-generated method stub
-                for (int i = 0; i < tbAdapter.unReadPosition.size(); i++) {
-                    if (tbAdapter.unReadPosition.get(i).equals(position + "")) {
-                        tbAdapter.unReadPosition.remove(i);
+                for (int i = 0; i < chatListViewAdapter.unReadPosition.size(); i++) {
+                    if (chatListViewAdapter.unReadPosition.get(i).equals(position + "")) {
+                        chatListViewAdapter.unReadPosition.remove(i);
                         break;
                     }
                 }
             }
 
         });
-        myList.setOnScrollListener(new AbsListView.OnScrollListener() {
+        pullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 // TODO Auto-generated method stub
                 switch (scrollState) {
                     case SCROLL_STATE_IDLE:
-                        tbAdapter.handler.removeCallbacksAndMessages(null);
-                        tbAdapter.setIsGif(true);
-                        tbAdapter.isPicRefresh = false;
-                        tbAdapter.notifyDataSetChanged();
+                        chatListViewAdapter.handler.removeCallbacksAndMessages(null);
+                        chatListViewAdapter.setIsGif(true);
+                        chatListViewAdapter.isPicRefresh = false;
+                        chatListViewAdapter.notifyDataSetChanged();
                         break;
                     case SCROLL_STATE_TOUCH_SCROLL:
-                        tbAdapter.handler.removeCallbacksAndMessages(null);
-                        tbAdapter.setIsGif(false);
-                        tbAdapter.isPicRefresh = true;
+                        chatListViewAdapter.handler.removeCallbacksAndMessages(null);
+                        chatListViewAdapter.setIsGif(false);
+                        chatListViewAdapter.isPicRefresh = true;
                         reset();
                         KeyBoardUtils.hideKeyBoard(ListViewChatActivity.this,
                                 mEditTextContent);
@@ -130,7 +130,7 @@ public class ListViewChatActivity extends BaseActivity {
             @Override
             public void onStart() {
                 // TODO Auto-generated method stub
-                tbAdapter.stopPlayVoice();
+                chatListViewAdapter.stopPlayVoice();
             }
         });
         super.init();
@@ -151,28 +151,28 @@ public class ListViewChatActivity extends BaseActivity {
             if (theActivity != null) {
                 switch (msg.what) {
                     case REFRESH:
-                        theActivity.tbAdapter.isPicRefresh = true;
-                        theActivity.tbAdapter.notifyDataSetChanged();
-                        theActivity.myList.setSelection(theActivity.tblist
+                        theActivity.chatListViewAdapter.isPicRefresh = true;
+                        theActivity.chatListViewAdapter.notifyDataSetChanged();
+                        theActivity.pullToRefreshListView.setSelection(theActivity.tblist
                                 .size() - 1);
                         break;
                     case SEND_OK:
                         theActivity.mEditTextContent.setText("");
-                        theActivity.tbAdapter.isPicRefresh = true;
-                        theActivity.tbAdapter.notifyDataSetChanged();
-                        theActivity.myList.setSelection(theActivity.tblist
+                        theActivity.chatListViewAdapter.isPicRefresh = true;
+                        theActivity.chatListViewAdapter.notifyDataSetChanged();
+                        theActivity.pullToRefreshListView.setSelection(theActivity.tblist
                                 .size() - 1);
                         break;
                     case RECERIVE_OK:
-                        theActivity.tbAdapter.isPicRefresh = true;
-                        theActivity.tbAdapter.notifyDataSetChanged();
-                        theActivity.myList.setSelection(theActivity.tblist
+                        theActivity.chatListViewAdapter.isPicRefresh = true;
+                        theActivity.chatListViewAdapter.notifyDataSetChanged();
+                        theActivity.pullToRefreshListView.setSelection(theActivity.tblist
                                 .size() - 1);
                         break;
                     case PULL_TO_REFRESH_DOWN:
-                        theActivity.pullList.refreshComplete();
-                        theActivity.tbAdapter.notifyDataSetChanged();
-                        theActivity.myList.setSelection(theActivity.position - 1);
+                        theActivity.pullToRefreshLayout.refreshComplete();
+                        theActivity.chatListViewAdapter.notifyDataSetChanged();
+                        theActivity.pullToRefreshListView.setSelection(theActivity.position - 1);
                         theActivity.isDown = false;
                         break;
                     default:
@@ -211,19 +211,19 @@ public class ListViewChatActivity extends BaseActivity {
                 }
                 key++;
             }
-            tbAdapter.setImageList(imageList);
-            tbAdapter.setImagePosition(imagePosition);
+            chatListViewAdapter.setImageList(imageList);
+            chatListViewAdapter.setImagePosition(imagePosition);
             sendMessageHandler.sendEmptyMessage(PULL_TO_REFRESH_DOWN);
             if (page == 0) {
-                pullList.refreshComplete();
-                pullList.setPullGone();
+                pullToRefreshLayout.refreshComplete();
+                pullToRefreshLayout.setPullGone();
             } else {
                 page--;
             }
         } else {
             if (page == 0) {
-                pullList.refreshComplete();
-                pullList.setPullGone();
+                pullToRefreshLayout.refreshComplete();
+                pullToRefreshLayout.setPullGone();
             }
         }
     }
@@ -358,7 +358,7 @@ public class ListViewChatActivity extends BaseActivity {
                 tbub.setTime(time);
                 tbub.setUserVoiceTime(seconds);
                 tbub.setUserVoicePath(filePath);
-                tbAdapter.unReadPosition.add(tblist.size() + "");
+                chatListViewAdapter.unReadPosition.add(tblist.size() + "");
                 tbub.setType(ChatListViewAdapter.FROM_USER_VOICE);
                 tblist.add(tbub);
                 sendMessageHandler.sendEmptyMessage(RECERIVE_OK);
@@ -389,6 +389,4 @@ public class ListViewChatActivity extends BaseActivity {
             }
         }
     };
-
-
 }

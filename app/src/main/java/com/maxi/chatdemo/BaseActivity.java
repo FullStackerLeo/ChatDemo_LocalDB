@@ -60,11 +60,13 @@ import java.util.Map;
  * Created by Mao Jiqing on 2016/10/20.
  */
 public abstract class BaseActivity extends Activity {
-    public PullToRefreshLayout pullList;
+    public PullToRefreshLayout pullToRefreshLayout;
     public boolean isDown = false;
     private boolean CAN_WRITE_EXTERNAL_STORAGE = true;
     private boolean CAN_RECORD_AUDIO = true;
+
     public int position; //加载滚动刷新位置
+
     public int bottomStatusHeight = 0;
     public int listSlideHeight = 0;//滑动距离
     public TextView send_emoji_icon;
@@ -142,7 +144,7 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void findView() {
-        pullList = (PullToRefreshLayout) findViewById(R.id.content_lv);
+        pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.content_lv);
         activityRootView = findViewById(R.id.layout_tongbao_rl);
         mEditTextContent = (EditText) findViewById(R.id.mess_et);
         mess_iv = (ImageView) findViewById(R.id.mess_iv);
@@ -166,7 +168,7 @@ public abstract class BaseActivity extends Activity {
                 downLoad();
             }
         };
-        pullList.setpulltorefreshNotifier(pullNotifier);
+        pullToRefreshLayout.setpulltorefreshNotifier(pullNotifier);
         voiceIv.setOnClickListener(new View.OnClickListener() {
 
             @Override
